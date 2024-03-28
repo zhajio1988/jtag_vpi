@@ -41,3 +41,9 @@ A verilator testbench is provided and can be run with:
 
 This simulation requires verilator.
 Result output is a waveform in VCD format.
+
+Add vcs support
+==========
+    cd sim/bin
+    make sim
+    verdi -ssf test.fsdb

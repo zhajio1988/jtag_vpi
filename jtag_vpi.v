@@ -210,6 +210,9 @@ begin
 	end
 
 	tms <= #1 1'b0;
+   if(jtag_vpi_tb.jtag_soc0.jtag_tap0.run_test_idle == 1'b1) begin
+		gen_clk(1);
+   end
 end
 
 endtask

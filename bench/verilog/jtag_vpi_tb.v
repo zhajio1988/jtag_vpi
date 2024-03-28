@@ -35,11 +35,6 @@ wire	[31:0]	wb_sdt;
 reg		sys_clock = 0;
 reg		sys_reset = 0;
 
-initial begin
-	$dumpfile("jtag_vpi.vcd");
-	$dumpvars(0);
-end
-
 always
 	#20 sys_clock <= ~sys_clock;
 
@@ -48,7 +43,7 @@ initial begin
 	#200 sys_reset <= 0;
 end
 
-jtag_vpi #(.DEBUG_INFO(0))
+jtag_vpi #(.DEBUG_INFO(1))
 jtag_vpi0
 (
 	.tms(tms_pad_i),

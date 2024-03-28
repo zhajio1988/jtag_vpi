@@ -6,15 +6,17 @@
 #define JTAG_SERVER_TRY_LATER  2
 #define JTAG_SERVER_CLIENT_DISCONNECTED  3
 
-#define	XFERT_MAX_SIZE	512
-
+#define    XFERT_MAX_SIZE    512
+#ifndef RISCV_DBG
+  #define RISCV_DBG 0
+#endif
 // jtag_vpi packet structure
 struct jtag_cmd {
-	uint32_t cmd;
-	unsigned char buffer_out[XFERT_MAX_SIZE];
-	unsigned char buffer_in[XFERT_MAX_SIZE];
-	uint32_t length;
-	uint32_t nb_bits;
+    uint32_t cmd;
+    unsigned char buffer_out[XFERT_MAX_SIZE];
+    unsigned char buffer_in[XFERT_MAX_SIZE];
+    uint32_t length;
+    uint32_t nb_bits;
 };
 
 typedef void (*print_func_ptr_t)(char *);

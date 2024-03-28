@@ -28,15 +28,14 @@ all: build
 build:
 	@echo '##### Building ######'
 	$(Q)gcc -otest_client $(BENCH_DIR)/../test_client.c
-	$(Q)iverilog-vpi --name=jtag_vpi $(IVERILOG_VPI_SRC) > /dev/null
-	$(Q)iverilog -I$(INCLUDE_DIR) -ojtag_vpi_tb.vvp $(IVERILOG_SRC)
+	$(Q)vcs -full64 -debug_acc+all +vcs+fsdbon -timescale=1ns/1ps -lca -kdb -sverilog -l build.log +incdir+$(INCLUDE_DIR) $(IVERILOG_VPI_SRC)  $(IVERILOG_SRC) -P jtag_vpi.tab +vpi -top jtag_vpi_tb
 
 sim: build
 	@echo '##### Start the simulation ######'
-	$(Q)vvp -n -M. -mjtag_vpi jtag_vpi_tb.vvp +jtag_vpi_enable=1 &
+	./simv  +fsdb+all=on -l sim.log +fsdbfile+test.fsdb +jtag_vpi_enable=1 &
 	@sleep 1
 	@echo '##### Running the test client ######'
 	$(Q)./test_client
 	@sleep 1
 clean:
-	@rm -rf *.o *~ *.vpi *.vvp *.vcd test_client
+	@rm -rf *.log simv.daidir simv csrc DVEfiles verdiLog novas.rc novas.conf *.fsdb *.log ucli.key vc_hdrs.h AN.DB work test_client  verdi_config_file
